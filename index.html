@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HP Customer Support Email Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>HP Customer Support Email Generator</h1>
+                <p class="subtitle">Generate professional support emails in 14 European languages</p>
+            </div>
+        </header>
+
+        <main>
+            <div class="form-section">
+                <h2>Email Details</h2>
+                <form id="emailForm">
+                    <div class="form-group">
+                        <label for="language">Select Language *</label>
+                        <select id="language" required>
+                            <option value="">-- Choose a language --</option>
+                            <option value="czech">Czech (Čeština)</option>
+                            <option value="dutch">Dutch (Nederlands)</option>
+                            <option value="english">English</option>
+                            <option value="hungarian">Hungarian (Magyar)</option>
+                            <option value="italian">Italian (Italiano)</option>
+                            <option value="polish">Polish (Polski)</option>
+                            <option value="portuguese">Portuguese (Português)</option>
+                            <option value="romanian">Romanian (Română)</option>
+                            <option value="russian">Russian (Русский)</option>
+                            <option value="serbian">Serbian (Српски)</option>
+                            <option value="slovak">Slovak (Slovenčina)</option>
+                            <option value="slovenian">Slovenian (Slovenščina)</option>
+                            <option value="spanish">Spanish (Español)</option>
+                            <option value="swedish">Swedish (Svenska)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerName">Customer Name *</label>
+                        <input type="text" id="customerName" placeholder="Enter customer name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="issueDetails">Issue Details *</label>
+                        <textarea id="issueDetails" placeholder="Describe the technical/customer issue" required rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="caseRef">Case Reference Number *</label>
+                        <input type="text" id="caseRef" placeholder="e.g., CS-2026-001234" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="serialNumber">HP Serial Number *</label>
+                        <input type="text" id="serialNumber" placeholder="e.g., SGH1234567" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bodyContent">Email Body (Additional Details)</label>
+                        <textarea id="bodyContent" placeholder="Add any additional context or resolution details" rows="4"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Generate Email</button>
+                </form>
+            </div>
+
+            <div class="preview-section">
+                <h2>Email Preview</h2>
+                <div id="emailPreview" class="email-preview">
+                    <p class="placeholder-text">Your generated email will appear here...</p>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="copyBtn" class="btn-secondary" disabled>📋 Copy to Clipboard</button>
+                    <button id="downloadBtn" class="btn-secondary" disabled>⬇️ Download as TXT</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>HP Trusted Advisor | EMEA Commercial Support – Personal Systems</p>
+            <p><a href="https://support.hp.com/contact" target="_blank">HP Support Options</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
