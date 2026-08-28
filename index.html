@@ -11,7 +11,7 @@
         <header>
             <div class="header-content">
                 <h1>HP Customer Support Email Generator</h1>
-                <p class="subtitle">Generate professional support emails in 14 European languages</p>
+                <p class="subtitle">Generate professional support emails in 17 European languages with KCI templates</p>
             </div>
         </header>
 
@@ -20,14 +20,27 @@
                 <h2>Email Details</h2>
                 <form id="emailForm">
                     <div class="form-group">
+                        <label for="template">Select Template *</label>
+                        <select id="template" required>
+                            <option value="">-- Choose a template --</option>
+                            <option value="custom">Custom Email</option>
+                            <option value="kci1">1st KCI - Parts Not Available</option>
+                            <option value="kci2">2nd KCI - Material Shortage with ETA</option>
+                            <option value="kci3">3rd KCI - ETA Update</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
                         <label for="language">Select Language *</label>
                         <select id="language" required>
                             <option value="">-- Choose a language --</option>
                             <option value="czech">Czech (Čeština)</option>
+                            <option value="danish">Danish (Dansk)</option>
                             <option value="dutch">Dutch (Nederlands)</option>
                             <option value="english">English</option>
                             <option value="hungarian">Hungarian (Magyar)</option>
                             <option value="italian">Italian (Italiano)</option>
+                            <option value="norwegian">Norwegian (Norsk)</option>
                             <option value="polish">Polish (Polski)</option>
                             <option value="portuguese">Portuguese (Português)</option>
                             <option value="romanian">Romanian (Română)</option>
@@ -45,9 +58,9 @@
                         <input type="text" id="customerName" placeholder="Enter customer name" required>
                     </div>
 
-                    <div class="form-group">
-                        <label for="issueDetails">Issue Details *</label>
-                        <textarea id="issueDetails" placeholder="Describe the technical/customer issue" required rows="3"></textarea>
+                    <div class="form-group" id="issueDetailsField">
+                        <label for="issueDetails">Issue Details</label>
+                        <textarea id="issueDetails" placeholder="Describe the technical/customer issue" rows="3"></textarea>
                     </div>
 
                     <div class="form-group">
@@ -60,9 +73,19 @@
                         <input type="text" id="serialNumber" placeholder="e.g., SGH1234567" required>
                     </div>
 
+                    <div class="form-group" id="etaFields" style="display: none;">
+                        <label for="eta">Initial ETA *</label>
+                        <input type="text" id="eta" placeholder="e.g., 15-May-2026">
+                    </div>
+
+                    <div class="form-group" id="newEtaField" style="display: none;">
+                        <label for="newEta">New ETA *</label>
+                        <input type="text" id="newEta" placeholder="e.g., 22-May-2026">
+                    </div>
+
                     <div class="form-group">
                         <label for="bodyContent">Email Body (Additional Details)</label>
-                        <textarea id="bodyContent" placeholder="Add any additional context or resolution details" rows="4"></textarea>
+                        <textarea id="bodyContent" placeholder="Add any additional context or resolution details (used for custom template)" rows="4"></textarea>
                     </div>
 
                     <button type="submit" class="btn-primary">Generate Email</button>
