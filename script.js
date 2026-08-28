@@ -10,6 +10,16 @@ const translations = {
         department: 'EMEA Commercial Support – Personal Systems',
         company: 'HP Customer Support',
     },
+    danish: {
+        greeting: 'Hej',
+        issueReported: 'Rapporteret problem',
+        caseRef: 'Sagsnummer#',
+        serialNumber: 'HP serienummer#',
+        regards: 'Med venlig hilsen',
+        title: 'HP Trusted Advisor',
+        department: 'EMEA Commercial Support – Personal Systems',
+        company: 'HP Customer Support',
+    },
     dutch: {
         greeting: 'Hallo',
         issueReported: 'Gemeld probleem',
@@ -29,6 +39,21 @@ const translations = {
         title: 'HP Trusted Advisor',
         department: 'EMEA Commercial Support – Personal Systems',
         company: 'HP Customer Support',
+        partsNotAvailable: 'Parts Not Available',
+        materialShortage: 'Material Shortage',
+        etaUpdate: 'ETA Update',
+        partsNotAvailableBody: 'Unfortunately, the parts are not available.\n\nThis has been escalated to our Logistics Team who are trying to source the parts. We will contact you as soon as we have an update.',
+        contactUs: 'If you have any queries, please feel free to contact us regarding the REPAIR STATUS\nHP Resources can be contacted using the below support options',
+        privacyStatement: 'For information about HP privacy practices, read the online privacy statement at www.hp.com/privacy.',
+        disclaimer: 'Our advice is strictly limited to the question(s) asked and is based on the information provided to us. Please review the HP Support Disclaimer at http://www.hp.com/support/emaildisclaimers',
+        unableToContact: 'We have been unable to contact you at the phone number provided.',
+        materialShortageInfo: 'We inform you that we have a shortage of the necessary material for your HP product with serial number',
+        initialEta: 'The Initial ETA provided for your material is:',
+        willContactSoon: 'We will contact you shortly to inform you about the expected date of assistance.',
+        expandInfo: 'You can expand this information by calling us using the below link or reply to this email.',
+        inconvenience: 'We apologize for any inconvenience for the delay that may be caused. Our logistics department is naturally anxious to shorten the waiting time for you.',
+        thankYou: 'We thank you for your patience and understanding!',
+        newEta: 'We would like to inform you that the Material Exception Team could not source the part as mentioned earlier and the new ETA is',
     },
     hungarian: {
         greeting: 'Tisztelt',
@@ -46,6 +71,16 @@ const translations = {
         caseRef: 'Rif. caso#',
         serialNumber: 'N. seriale HP#',
         regards: 'Cordiali saluti',
+        title: 'HP Trusted Advisor',
+        department: 'EMEA Commercial Support – Personal Systems',
+        company: 'HP Customer Support',
+    },
+    norwegian: {
+        greeting: 'Hei',
+        issueReported: 'Rapportert problem',
+        caseRef: 'Saksnummer#',
+        serialNumber: 'HP serienummer#',
+        regards: 'Med vennlig hilsen',
         title: 'HP Trusted Advisor',
         department: 'EMEA Commercial Support – Personal Systems',
         company: 'HP Customer Support',
@@ -142,19 +177,117 @@ const translations = {
     },
 };
 
+// KCI Email Templates
+const kciTemplates = {
+    kci1: {
+        name: '1st KCI - Parts Not Available',
+        bodyTemplate: (language, caseRef, serialNumber) => {
+            if (language === 'english') {
+                return `This e-mail is regarding HP case reference number ${caseRef}
+Unfortunately, the parts are not available.
+ 
+This has been escalated to our Logistics Team who are trying to source the parts. 
+We will contact you as soon as we have an update. 
+ 
+If you have any queries, please feel free to contact us regarding the REPAIR STATUS 
+HP Resources can be contacted using the below support options
+ 
+www.support.hp.com/contact
+Select Country > Enter Serial Number to get the support details
+ 
+ 
+For information about HP privacy practices, read the online privacy statement at www.hp.com/privacy.
+Our advice is strictly limited to the question(s) asked and is based on the information provided to us. Please review the HP Support Disclaimer at http://www.hp.com/support/emaildisclaimers`;
+            }
+            return `This e-mail is regarding HP case reference number ${caseRef}\n...`;
+        }
+    },
+    kci2: {
+        name: '2nd KCI - Material Shortage with ETA',
+        bodyTemplate: (language, caseRef, serialNumber, eta) => {
+            if (language === 'english') {
+                return `We have been unable to contact you at the phone number provided.
+We inform you that we have a shortage of the necessary material for your HP product with serial number ${serialNumber}.
+The Initial ETA provided for your material is: ${eta}
+We will contact you shortly to inform you about the expected date of assistance.
+You can expand this information by calling us using the below link or reply to this email.
+ 
+www.support.hp.com/contact
+Select Country > Enter Serial Number to get the support details
+ 
+ 
+We apologize for any inconvenience for the delay that may be caused. Our logistics department is naturally anxious to shorten the waiting time for you. 
+We thank you for your patience and understanding! 
+
+For information about HP privacy practices, read the online privacy statement at www.hp.com/privacy.
+Our advice is strictly limited to the question(s) asked and is based on the information provided to us. Please review the HP Support Disclaimer at http://www.hp.com/support/emaildisclaimers`;
+            }
+            return `We have been unable to contact you at the phone number provided.\n...`;
+        }
+    },
+    kci3: {
+        name: '3rd KCI - ETA Update',
+        bodyTemplate: (language, caseRef, serialNumber, eta, newEta) => {
+            if (language === 'english') {
+                return `We have been unable to contact you at the phone number provided.
+We inform you that we have a shortage of the necessary material for your HP product with serial number ${serialNumber}.
+The Initial ETA provided for your material is: ${eta}
+We would like to inform you that the Material Exception Team could not source the part as mentioned earlier and the new ETA is ${newEta}
+We will contact you shortly to inform you about the expected date of assistance.
+You can expand this information by calling us using the below link or reply to this email.
+ 
+www.support.hp.com/contact
+Select Country > Enter Serial Number to get the support details
+ 
+ 
+We apologize for any inconvenience for the delay that may be caused. Our logistics department is naturally anxious to shorten the waiting time for you. 
+We thank you for your patience and understanding! 
+
+For information about HP privacy practices, read the online privacy statement at www.hp.com/privacy.
+Our advice is strictly limited to the question(s) asked and is based on the information provided to us. Please review the HP Support Disclaimer at http://www.hp.com/support/emaildisclaimers`;
+            }
+            return `We have been unable to contact you at the phone number provided.\n...`;
+        }
+    }
+};
+
 // Form and UI elements
 const emailForm = document.getElementById('emailForm');
 const languageSelect = document.getElementById('language');
+const templateSelect = document.getElementById('template');
 const customerNameInput = document.getElementById('customerName');
 const issueDetailsInput = document.getElementById('issueDetails');
 const caseRefInput = document.getElementById('caseRef');
 const serialNumberInput = document.getElementById('serialNumber');
 const bodyContentInput = document.getElementById('bodyContent');
+const etaInput = document.getElementById('eta');
+const newEtaInput = document.getElementById('newEta');
 const emailPreview = document.getElementById('emailPreview');
 const copyBtn = document.getElementById('copyBtn');
 const downloadBtn = document.getElementById('downloadBtn');
 
 let generatedEmail = '';
+
+// Show/hide ETA fields based on template selection
+function updateFormFields() {
+    const template = templateSelect.value;
+    const etaFields = document.getElementById('etaFields');
+    const newEtaField = document.getElementById('newEtaField');
+    
+    if (template === 'kci1') {
+        etaFields.style.display = 'none';
+        newEtaField.style.display = 'none';
+    } else if (template === 'kci2') {
+        etaFields.style.display = 'block';
+        newEtaField.style.display = 'none';
+    } else if (template === 'kci3') {
+        etaFields.style.display = 'block';
+        newEtaField.style.display = 'block';
+    }
+}
+
+// Event listener for template selection
+templateSelect.addEventListener('change', updateFormFields);
 
 // Generate email on form submission
 emailForm.addEventListener('submit', function(e) {
@@ -170,31 +303,56 @@ function toggleActionButtons(hasContent) {
 
 function generateEmail() {
     const language = languageSelect.value;
+    const template = templateSelect.value;
     const customerName = customerNameInput.value.trim();
     const issueDetails = issueDetailsInput.value.trim();
     const caseRef = caseRefInput.value.trim();
     const serialNumber = serialNumberInput.value.trim();
     const bodyContent = bodyContentInput.value.trim();
+    const eta = etaInput.value.trim();
+    const newEta = newEtaInput.value.trim();
 
-    if (!language || !customerName || !issueDetails || !caseRef || !serialNumber) {
+    if (!language || !customerName || !caseRef || !serialNumber) {
         alert('Please fill in all required fields.');
         return;
     }
 
-    const trans = translations[language];
-
-    let emailBody = `${trans.greeting} ${customerName},\n\n`;
-    emailBody += `${trans.issueReported}: ${issueDetails}\n`;
-    emailBody += `${trans.caseRef}: ${caseRef}\n`;
-    emailBody += `${trans.serialNumber}: ${serialNumber}\n\n`;
-
-    if (bodyContent) {
-        emailBody += `${bodyContent}\n\n`;
-    } else {
-        emailBody += `We have received your support request and have opened a case in our system. Our technical team is reviewing your issue and will contact you shortly with updates and a resolution.\n\n`;
+    // Additional validation for specific templates
+    if ((template === 'kci2' || template === 'kci3') && !eta) {
+        alert('Please fill in the ETA field for this template.');
+        return;
     }
 
-    emailBody += `${trans.regards},\n`;
+    if (template === 'kci3' && !newEta) {
+        alert('Please fill in the New ETA field for this template.');
+        return;
+    }
+
+    const trans = translations[language];
+    
+    let emailBody = `${trans.greeting} ${customerName},\n\n`;
+    
+    // Generate body based on template
+    if (template === 'kci1') {
+        emailBody += kciTemplates.kci1.bodyTemplate(language, caseRef, serialNumber);
+    } else if (template === 'kci2') {
+        emailBody += kciTemplates.kci2.bodyTemplate(language, caseRef, serialNumber, eta);
+    } else if (template === 'kci3') {
+        emailBody += kciTemplates.kci3.bodyTemplate(language, caseRef, serialNumber, eta, newEta);
+    } else {
+        // Default custom email generation
+        emailBody += `${trans.issueReported}: ${issueDetails}\n`;
+        emailBody += `${trans.caseRef}: ${caseRef}\n`;
+        emailBody += `${trans.serialNumber}: ${serialNumber}\n\n`;
+
+        if (bodyContent) {
+            emailBody += `${bodyContent}\n\n`;
+        } else {
+            emailBody += `We have received your support request and have opened a case in our system. Our technical team is reviewing your issue and will contact you shortly with updates and a resolution.\n\n`;
+        }
+    }
+
+    emailBody += `\n\n${trans.regards},\n`;
     emailBody += `AnushaAshok\n`;
     emailBody += `${trans.title}\n`;
     emailBody += `${trans.department}\n`;
@@ -232,4 +390,5 @@ downloadBtn.addEventListener('click', function() {
 });
 
 // Initialize
+updateFormFields();
 toggleActionButtons(false);
